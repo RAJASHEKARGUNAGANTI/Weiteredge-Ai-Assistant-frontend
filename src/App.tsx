@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useChat } from "./hooks/useChat";
+import { useTheme } from "./hooks/useTheme";
 import Sidebar from "./components/Sidebar";
 import ChatWindow from "./components/ChatWindow";
 
@@ -16,6 +17,7 @@ function App() {
     deleteSession,
   } = useChat();
 
+  const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSelectSession = (id: string) => {
@@ -29,7 +31,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen bg-white relative">
+    <div className="flex h-screen bg-white dark:bg-gray-900 relative">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -62,6 +64,8 @@ function App() {
           error={error}
           onSend={sendMessage}
           onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          theme={theme}
+          onToggleTheme={toggleTheme}
         />
       </div>
     </div>

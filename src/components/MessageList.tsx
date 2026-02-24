@@ -17,7 +17,7 @@ export default function MessageList({ messages, isLoading }: MessageListProps) {
 
   if (messages.length === 0 && !isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center text-gray-400">
+      <div className="flex-1 flex items-center justify-center text-gray-400 dark:text-gray-500">
         <div className="text-center">
           <div className="text-4xl mb-3">💬</div>
           <p className="text-lg font-medium">Start a conversation</p>
