@@ -1,3 +1,4 @@
+import { Bot } from "lucide-react";
 import type { Session } from "../services/api";
 import { formatDateTime } from "../utils/formatTime";
 
@@ -56,13 +57,18 @@ export default function Sidebar({
             >
               <button
                 onClick={() => onSelectSession(session.id)}
-                className="w-full text-left px-3 py-2.5 text-sm"
+                className="w-full text-left px-3 py-2.5 text-sm flex items-center gap-2.5"
               >
-                <div className={`truncate font-medium ${isActive ? "text-white" : "text-gray-300"}`}>
-                  {title}
+                <div className="w-7 h-7 rounded-full bg-emerald-900 flex items-center justify-center shrink-0">
+                  <Bot size={14} className="text-emerald-400" />
                 </div>
-                <div className="text-xs text-gray-500 mt-0.5">
-                  {formatDateTime(session.updated_at)}
+                <div className="min-w-0 flex-1">
+                  <div className={`truncate font-medium ${isActive ? "text-white" : "text-gray-300"}`}>
+                    {title}
+                  </div>
+                  <div className="text-xs text-gray-500 mt-0.5">
+                    {formatDateTime(session.updated_at)} · <span className="font-mono">{session.id.slice(0, 8)}</span>
+                  </div>
                 </div>
               </button>
               <button
@@ -82,9 +88,12 @@ export default function Sidebar({
         })}
       </div>
 
-      <div className="p-4 border-t border-gray-700">
+      <div className="p-4 border-t border-gray-700 space-y-2">
         <p className="text-xs text-gray-500 text-center">
           Weitredge Support
+        </p>
+        <p className="text-xs text-gray-600 text-center leading-relaxed">
+          If an error occurs, please wait ~50s for the free Render backend to restart.
         </p>
       </div>
     </div>
