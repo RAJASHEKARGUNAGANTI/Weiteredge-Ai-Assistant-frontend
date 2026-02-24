@@ -1,6 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Message } from "../services/api";
+import { formatTime } from "../utils/formatTime";
 
 interface MessageBubbleProps {
   message: Message;
@@ -8,10 +9,7 @@ interface MessageBubbleProps {
 
 export default function MessageBubble({ message }: MessageBubbleProps) {
   const isUser = message.role === "user";
-  const time = new Date(message.created_at).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const time = formatTime(message.created_at);
 
   return (
     <div

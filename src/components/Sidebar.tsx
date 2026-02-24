@@ -1,4 +1,5 @@
 import type { Session } from "../services/api";
+import { formatDateTime } from "../utils/formatTime";
 
 interface SidebarProps {
   sessions: Session[];
@@ -7,21 +8,6 @@ interface SidebarProps {
   onSelectSession: (id: string) => void;
   onDeleteSession: (id: string) => void;
   onClose: () => void;
-}
-
-function formatDate(dateStr: string): string {
-  const normalized = dateStr.includes("T") ? dateStr : dateStr.replace(" ", "T") + "Z";
-  const date = new Date(normalized);
-  if (isNaN(date.getTime())) return dateStr;
-
-  const now = new Date();
-  const isToday = date.toDateString() === now.toDateString();
-
-  const time = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  if (isToday) return `Today, ${time}`;
-
-  const day = date.toLocaleDateString([], { month: "short", day: "numeric" });
-  return `${day}, ${time}`;
 }
 
 export default function Sidebar({
@@ -76,7 +62,7 @@ export default function Sidebar({
                   {title}
                 </div>
                 <div className="text-xs text-gray-500 mt-0.5">
-                  {formatDate(session.updated_at)}
+                  {formatDateTime(session.updated_at)}
                 </div>
               </button>
               <button
