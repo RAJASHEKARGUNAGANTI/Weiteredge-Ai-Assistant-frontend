@@ -6,11 +6,10 @@ interface SidebarProps {
   onNewChat: () => void;
   onSelectSession: (id: string) => void;
   onDeleteSession: (id: string) => void;
+  onClose: () => void;
 }
 
 function formatDate(dateStr: string): string {
-  // SQLite CURRENT_TIMESTAMP returns "YYYY-MM-DD HH:MM:SS" (no T, no Z)
-  // Append Z to treat as UTC, then convert to local time
   const normalized = dateStr.includes("T") ? dateStr : dateStr.replace(" ", "T") + "Z";
   const date = new Date(normalized);
   if (isNaN(date.getTime())) return dateStr;
@@ -31,15 +30,25 @@ export default function Sidebar({
   onNewChat,
   onSelectSession,
   onDeleteSession,
+  onClose,
 }: SidebarProps) {
   return (
     <div className="w-64 bg-gray-900 text-white flex flex-col h-full">
-      <div className="p-4">
+      <div className="p-4 flex items-center gap-2">
         <button
           onClick={onNewChat}
-          className="w-full rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium hover:bg-gray-800 transition-colors"
+          className="flex-1 rounded-lg border border-gray-600 px-4 py-2.5 text-sm font-medium hover:bg-gray-800 transition-colors"
         >
           + New Chat
+        </button>
+        <button
+          onClick={onClose}
+          className="md:hidden rounded-lg p-2.5 hover:bg-gray-800 transition-colors"
+          title="Close sidebar"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+          </svg>
         </button>
       </div>
 
